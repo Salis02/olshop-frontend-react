@@ -1,6 +1,6 @@
 import apiClient from "./client";
 
-const authApi = {
+export const authApi = {
     login: async (email, password) => {
         const response = await apiClient.post('/auth/login', { email, password });
         return response.data;
@@ -26,5 +26,3 @@ const authApi = {
         return response.data;
     }
 }
-
-export default authApi;

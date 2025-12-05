@@ -23,15 +23,16 @@ apiClient.interceptors.request.use(
 
 apiClient.interceptors.response.use(
     (response) => {
-        return response;
+        return response.data;
     },
     error => {
-        if (error.response && error.response.status === 401) {
+        if (error.response?.status === 401) {
             localStorage.removeItem('token');
             localStorage.removeItem('user');
             window.location.href = '/login';
         }
-        return Promise.reject(error);
+        const errorMessage = error.response?.data?.message || 'An unexpected error occurred';
+        return Promise.reject(new Error(errorMessage));
     }
 )
 

@@ -11,10 +11,17 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         const storedToken = localStorage.getItem('token');
         const storedUser = localStorage.getItem('user');
-        if (storedToken && storedUser) {
-            setToken(storedToken);
-            setUser(JSON.parse(storedUser));
+
+        try {
+            if (storedToken && storedUser && storedUser !== "undefined") {
+                setToken(storedToken);
+                setUser(JSON.parse(storedUser));
+            }
+        } catch (e) {
+            console.warn("Invalid stored user JSON, resetting...");
+            localStorage.removeItem('user');
         }
+        
         setLoading(false);
     }, []);
 
@@ -22,8 +29,10 @@ export const AuthProvider = ({ children }) => {
     const login = async (email, password) => {
         try {
             const data = await authApi.login(email, password);
+
             setToken(data.token);
             setUser(data.user);
+
             localStorage.setItem('token', data.token);
             localStorage.setItem('user', JSON.stringify(data.user));
 

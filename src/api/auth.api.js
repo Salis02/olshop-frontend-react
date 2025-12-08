@@ -13,16 +13,16 @@ export const authApi = {
 
     logout: async () => {
         const response = await apiClient.post('/auth/logout');
-        return response.data;
+        return response;
     },
 
     forgotPassword: async (email) => {
         const response = await apiClient.post('/auth/forgot-password', { email });
-        return response.data;
+        return response;
     },
 
     resetPassword: async (token, newPassword) => {
         const response = await apiClient.post('/auth/reset-password', { token, newPassword });
-        return response.data;
+        return response;
     }
 }

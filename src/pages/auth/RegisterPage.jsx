@@ -13,7 +13,7 @@ export const RegisterPage = () => {
         confirmPassword: ''
     })
 
-    const [error, setError] = useState({});
+    const [errors, setErrors] = useState({});
     const [isLoading, setIsLoading] = useState(false);
 
     const handleChange = (e) => {
@@ -21,8 +21,8 @@ export const RegisterPage = () => {
             ...formData,
             [e.target.name]: e.target.value
         });
-        setError({
-            ...error,
+        setErrors({
+            ...errors,
             [e.target.name]: ''
         });
     }

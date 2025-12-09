@@ -9,9 +9,10 @@ export const RegisterPage = () => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
+        phone: '',
         password: '',
         confirmPassword: ''
-    })
+    });
 
     const [errors, setErrors] = useState({});
     const [isLoading, setIsLoading] = useState(false);
@@ -21,11 +22,15 @@ export const RegisterPage = () => {
             ...formData,
             [e.target.name]: e.target.value
         });
-        setErrors({
-            ...errors,
-            [e.target.name]: ''
-        });
-    }
+
+        // Clear error untuk field yang sedang diubah
+        if (errors[e.target.name]) {
+            setErrors({
+                ...errors,
+                [e.target.name]: ''
+            });
+        }
+    };
 
     const validateForm = () => {
         const newErrors = {};
@@ -73,6 +78,7 @@ export const RegisterPage = () => {
         }
 
         setIsLoading(true);
+        setErrors({}); // Clear previous errors
 
         // Prepare data untuk backend (exclude confirmPassword)
         const userData = {
@@ -221,5 +227,5 @@ export const RegisterPage = () => {
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};

@@ -1,4 +1,4 @@
-export const Loading = () => {
+export const Loading = ({ size = 'md', fullScreen = false }) => {
     const sizeClasses = {
         sm: 'h-8 w-8',
         md: 'h-12 w-12',

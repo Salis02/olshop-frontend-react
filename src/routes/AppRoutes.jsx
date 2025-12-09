@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ProtectedRoute } from '../components/auth/ProtectedRoute';
 
 // Auth pages
@@ -25,7 +25,7 @@ export const AppRoutes = () => {
                     <Route path="/" element={<HomePage />} />
                 </Route>
 
-                {/* 404 */}
+                {/* 404 - Handle route with no handle */}
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>
         </BrowserRouter>

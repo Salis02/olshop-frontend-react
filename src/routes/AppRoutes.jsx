@@ -9,6 +9,7 @@ import { RegisterPage } from '../pages/auth/RegisterPage';
 import { HomePage } from '../pages/home/HomePage';
 import { NotFoundPage } from '../pages/error/NotFoundPage';
 import { PublicRoutes } from '../components/auth/PublicRoutes';
+import { ProductListPage } from '../pages/products/ProductListPage';
 
 export const AppRoutes = () => {
     return (
@@ -23,6 +24,7 @@ export const AppRoutes = () => {
                 {/* Protected Routes */}
                 <Route element={<ProtectedRoute />}>
                     <Route path="/" element={<HomePage />} />
+                    <Route path="/products" element={<ProductListPage />} />
                 </Route>
 
                 {/* 404 - Handle route with no handle */}

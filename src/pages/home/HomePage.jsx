@@ -1,8 +1,37 @@
+import { useState, useEffect } from "react";
 import { Layout } from "../../components/layout/Layout";
 import { useAuth } from "../../hooks/useAuth";
+import { ProductGrid } from "../../components/product/ProductGrid";
+import { productApi } from "../../api";
+import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 
 export const HomePage = () => {
     const { user } = useAuth();
+    const [FeaturedProducts, setFeaturedProducts] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
+
+    useEffect(() => {
+        fetchFeaturedProducts();
+    }, [])
+
+    const fetchFeaturedProducts = async () => {
+        try {
+            setIsLoading(true)
+
+            const response = await productApi.getAll({
+                limit: 8,
+                sort: 'created_at',
+                order: 'desc',
+            });
+            setFeaturedProducts(response.data)
+        } catch (err) {
+            console.error('Failed to fetch products: ', err)
+        } finally {
+            setIsLoading(false)
+        }
+    }
+
     return (
         <Layout>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -54,17 +83,20 @@ export const HomePage = () => {
                     </div>
                 </div>
 
-                {/* Products Section - Coming Soon */}
+                {/* Featured Products */}
                 <div>
                     <h2 className="text-2xl font-bold text-gray-900 mb-6">
                         Featured Products
                     </h2>
-                    <div className="bg-gray-100 rounded-lg p-12 text-center">
-                        <p className="text-gray-600">
-                            Products will be loaded here soon...
-                        </p>
-                    </div>
+                    <Link
+                        to="/products"
+                        className="flex items-center space-x-2 text-primary hover:text-blue-600 font-medium"
+                    >
+                        <span>View All</span>
+                        <ArrowRight className="w-5 h-5" />
+                    </Link>
                 </div>
+                <ProductGrid products={FeaturedProducts} isLoading={isLoading} />
             </div>
         </Layout>
     )

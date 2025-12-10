@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { Loading } from "../common/Loading";
 import { useAuth } from "../../hooks/useAuth";
+import { Loading } from "../../components/common/Loading";
 
 const PublicRoutes = () => {
     const { isAuthenticated, isLoading } = useAuth();

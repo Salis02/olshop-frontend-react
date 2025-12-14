@@ -3,7 +3,10 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import { Layout } from "../../components/layout/Layout";
 import { Button } from "../../components/common/Button";
 import { Loading } from "../../components/common/Loading";
+import { ReviewList } from '../../components/review/ReviewList';
+import { ReviewForm } from '../../components/review/ReviewForm';
 import { productApi } from "../../api";
+import { reviewApi } from '../../api';
 import {
     ShoppingCart,
     Heart,
@@ -25,6 +28,8 @@ export const ProductDetailPage = () => {
     const [error, setError] = useState(null)
     const [selectedImage, setSelectedImage] = useState(0)
     const [quantity, setQuantity] = useState(1)
+    const [reviews, setReviews] = useState([])
+    const [isLoadingReviews, setIsLoadingReviews] = useState(false)
 
     useEffect(() => {
         fetchProductDetail();
@@ -42,6 +47,30 @@ export const ProductDetailPage = () => {
         } finally {
             setIsLoading(false)
         }
+    }
+
+    useEffect(() => {
+        if (uuid) {
+            fetchProductDetail()
+            fetchReviews()
+        }
+    }, [uuid])
+
+    const fetchReviews = async () => {
+        try {
+            setIsLoadingReviews(true)
+            const response = await reviewApi.getById(uuid)
+            setReviews(response)
+        } catch (err) {
+            console.error('Failed to fetch reviews: ', err)
+        } finally {
+            setIsLoadingReviews(false)
+        }
+    }
+
+    const handleReviewsSubmitProcess = () => {
+        fetchReviews()
+        alert('Review submitted successfully')
     }
 
     const formatPrice = (price) => {
@@ -148,8 +177,8 @@ export const ProductDetailPage = () => {
                                         key={index}
                                         onClick={() => setSelectedImage(index)}
                                         className={`border-2 rounded-lg overflow-hidden aspect-square ${selectedImage === index
-                                                ? 'border-primary'
-                                                : 'border-gray-200 hover:border-gray-300'
+                                            ? 'border-primary'
+                                            : 'border-gray-200 hover:border-gray-300'
                                             }`}
                                     >
                                         <img
@@ -185,8 +214,8 @@ export const ProductDetailPage = () => {
                                     <Star
                                         key={index}
                                         className={`w-5 h-5 ${index < Math.round(avgRating)
-                                                ? 'text-yellow-400 fill-current'
-                                                : 'text-gray-300'
+                                            ? 'text-yellow-400 fill-current'
+                                            : 'text-gray-300'
                                             }`}
                                     />
                                 ))}
@@ -333,40 +362,20 @@ export const ProductDetailPage = () => {
 
                 {/* Reviews Section */}
                 <div className="bg-white rounded-lg shadow-md p-6">
-                    <h2 className="text-2xl font-bold text-gray-900 mb-6">Customer Reviews</h2>
+                    <h2 className="text-2xl font-bold text-gray-900 mb-6">
+                        Customer Reviews ({reviews.length})
+                    </h2>
 
-                    {product.reviews && product.reviews.length > 0 ? (
-                        <div className="space-y-6">
-                            {product.reviews.map((review) => (
-                                <div key={review.id} className="border-b border-gray-200 pb-6 last:border-0">
-                                    <div className="flex items-center justify-between mb-2">
-                                        <div className="flex items-center space-x-2">
-                                            <span className="font-semibold text-gray-900">
-                                                {review.user?.name || 'Anonymous'}
-                                            </span>
-                                            <div className="flex">
-                                                {[...Array(5)].map((_, index) => (
-                                                    <Star
-                                                        key={index}
-                                                        className={`w-4 h-4 ${index < review.rating
-                                                                ? 'text-yellow-400 fill-current'
-                                                                : 'text-gray-300'
-                                                            }`}
-                                                    />
-                                                ))}
-                                            </div>
-                                        </div>
-                                        <span className="text-sm text-gray-500">
-                                            {new Date(review.created_at).toLocaleDateString('id-ID')}
-                                        </span>
-                                    </div>
-                                    <p className="text-gray-600">{review.comment}</p>
-                                </div>
-                            ))}
-                        </div>
-                    ) : (
-                        <p className="text-gray-500 text-center py-8">No reviews yet. Be the first to review this product!</p>
-                    )}
+                    {/* Review Form */}
+                    <div className="mb-8">
+                        <ReviewForm
+                            productId={uuid}
+                            onSubmitSuccess={handleReviewSubmitSuccess}
+                        />
+                    </div>
+
+                    {/* Reviews List */}
+                    <ReviewList reviews={reviews} isLoading={isLoadingReviews} />
                 </div>
             </div>
         </Layout>

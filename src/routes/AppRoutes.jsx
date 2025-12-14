@@ -11,6 +11,7 @@ import { NotFoundPage } from '../pages/error/NotFoundPage';
 import { PublicRoutes } from '../context/auth/PublicRoutes';
 import { ProductListPage } from '../pages/products/ProductListPage';
 import { ProductDetailPage } from '../pages/products/ProductDetailPage';
+import { CategoriesPage } from '../pages/categories/CategoriesPage';
 
 export const AppRoutes = () => {
     return (
@@ -26,6 +27,7 @@ export const AppRoutes = () => {
                 <Route element={<ProtectedRoute />}>
                     <Route path="/" element={<HomePage />} />
                     <Route path="/products" element={<ProductListPage />} />
+                    <Route path="/categories" element={<CategoriesPage />} />
                     <Route path="/products/:uuid" element={<ProductDetailPage />} />
                 </Route>
 

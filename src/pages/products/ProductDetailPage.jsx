@@ -32,8 +32,12 @@ export const ProductDetailPage = () => {
     const [isLoadingReviews, setIsLoadingReviews] = useState(false)
 
     useEffect(() => {
+        if (!uuid) return;
+
         fetchProductDetail();
-    }, [uuid])
+        fetchReviews();
+    }, [uuid]);
+
 
     const fetchProductDetail = async () => {
         try {
@@ -48,13 +52,6 @@ export const ProductDetailPage = () => {
             setIsLoading(false)
         }
     }
-
-    useEffect(() => {
-        if (uuid) {
-            fetchProductDetail()
-            fetchReviews()
-        }
-    }, [uuid])
 
     const fetchReviews = async () => {
         try {

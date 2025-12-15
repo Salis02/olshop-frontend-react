@@ -59,7 +59,7 @@ export const ProductDetailPage = () => {
     const fetchReviews = async () => {
         try {
             setIsLoadingReviews(true)
-            const response = await reviewApi.getById(uuid)
+            const response = await reviewApi.getByProduct(uuid)
             setReviews(response)
         } catch (err) {
             console.error('Failed to fetch reviews: ', err)
@@ -68,7 +68,7 @@ export const ProductDetailPage = () => {
         }
     }
 
-    const handleReviewsSubmitProcess = () => {
+    const handleReviewSubmitSuccess = () => {
         fetchReviews()
         alert('Review submitted successfully')
     }

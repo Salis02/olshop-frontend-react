@@ -1,6 +1,6 @@
 import apiClient from "./client";
 
-export default reviewApi = {
+export const reviewApi = {
 
     // Get product review
     getByProduct: async (product_id) => {

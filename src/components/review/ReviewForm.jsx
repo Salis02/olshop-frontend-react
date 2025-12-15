@@ -24,7 +24,7 @@ export const ReviewForm = ({ productId, onSubmitSuccess }) => {
 
         try {
             const { reviewApi } = await import('../../api');
-            await reviewApi.create({
+            await reviewApi.createReview({
                 product_id: productId,
                 rating,
                 comment: comment.trim() || null
@@ -84,8 +84,8 @@ export const ReviewForm = ({ productId, onSubmitSuccess }) => {
                         >
                             <Star
                                 className={`w-8 h-8 ${star <= (hoverRating || rating)
-                                        ? 'text-yellow-400 fill-current'
-                                        : 'text-gray-300'
+                                    ? 'text-yellow-400 fill-current'
+                                    : 'text-gray-300'
                                     }`}
                             />
                         </button>

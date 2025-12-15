@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ProtectedRoute } from '../context/auth/ProtectedRoute';
+import { PublicRoutes } from '../context/auth/PublicRoutes';
 
 // Auth pages
 import { LoginPage } from '../pages/auth/LoginPage';
@@ -8,7 +9,6 @@ import { RegisterPage } from '../pages/auth/RegisterPage';
 // ProtectedRoute component
 import { HomePage } from '../pages/home/HomePage';
 import { NotFoundPage } from '../pages/error/NotFoundPage';
-import { PublicRoutes } from '../context/auth/PublicRoutes';
 import { ProductListPage } from '../pages/products/ProductListPage';
 import { ProductDetailPage } from '../pages/products/ProductDetailPage';
 import { CategoriesPage } from '../pages/categories/CategoriesPage';

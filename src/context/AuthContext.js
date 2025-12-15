@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const storedToken = localStorage.getItem('token');
+        const storedToken = localStorage.getItem('accessToken');
         const storedUser = localStorage.getItem('user');
 
         try {
@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
             console.warn("Invalid stored user JSON, resetting...");
             localStorage.removeItem('user');
         }
-        
+
         setLoading(false);
     }, []);
 
@@ -30,10 +30,10 @@ export const AuthProvider = ({ children }) => {
         try {
             const data = await authApi.login(email, password);
 
-            setToken(data.token);
+            setToken(data.accessToken);
             setUser(data.user);
 
-            localStorage.setItem('token', data.token);
+            localStorage.setItem('accessToken', data.accessToken);
             localStorage.setItem('user', JSON.stringify(data.user));
 
             return { success: true };

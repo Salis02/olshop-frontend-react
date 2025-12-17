@@ -17,6 +17,12 @@ export const AppRoutes = () => {
     return (
         <BrowserRouter>
             <Routes>
+
+                <Route path="/" element={<HomePage />} />
+                <Route path="/products" element={<ProductListPage />} />
+                <Route path="/categories" element={<CategoriesPage />} />
+                <Route path="/products/:uuid" element={<ProductDetailPage />} />
+
                 {/* Public Routes */}
                 <Route element={<PublicRoutes />}>
                     <Route path="/login" element={<LoginPage />} />
@@ -25,10 +31,7 @@ export const AppRoutes = () => {
 
                 {/* Protected Routes */}
                 <Route element={<ProtectedRoute />}>
-                    <Route path="/" element={<HomePage />} />
-                    <Route path="/products" element={<ProductListPage />} />
-                    <Route path="/categories" element={<CategoriesPage />} />
-                    <Route path="/products/:uuid" element={<ProductDetailPage />} />
+
                 </Route>
 
                 {/* 404 - Handle route with no handle */}

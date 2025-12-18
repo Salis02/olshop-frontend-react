@@ -28,7 +28,7 @@ export const cartApi = {
 
     // Clear entire cart
     clear: async () => {
-        const response = await apiCLient.delete('/delete')
+        const response = await apiCLient.delete('/cart')
         return response.data
     }
 }

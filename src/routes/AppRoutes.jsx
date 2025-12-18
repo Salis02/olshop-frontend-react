@@ -12,6 +12,7 @@ import { NotFoundPage } from '../pages/error/NotFoundPage';
 import { ProductListPage } from '../pages/products/ProductListPage';
 import { ProductDetailPage } from '../pages/products/ProductDetailPage';
 import { CategoriesPage } from '../pages/categories/CategoriesPage';
+import { CartPage } from '../pages/cart/CartPage';
 
 export const AppRoutes = () => {
     return (
@@ -31,7 +32,7 @@ export const AppRoutes = () => {
 
                 {/* Protected Routes */}
                 <Route element={<ProtectedRoute />}>
-
+                    <Route path="/cart" element={<CartPage />} />
                 </Route>
 
                 {/* 404 - Handle route with no handle */}

@@ -18,10 +18,12 @@ import {
     Shield,
     Truck
 } from "lucide-react";
+import { useCart } from "../../hooks/useCart";
 
 export const ProductDetailPage = () => {
     const { uuid } = useParams()
     const navigate = useNavigate()
+    const { addItemToCart } = useCart()
 
     const [product, setProduct] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
@@ -30,6 +32,7 @@ export const ProductDetailPage = () => {
     const [quantity, setQuantity] = useState(1)
     const [reviews, setReviews] = useState([])
     const [isLoadingReviews, setIsLoadingReviews] = useState(false)
+    const [isAddingToCart, setIsAddingToCart] = useState(false)
 
     useEffect(() => {
         if (!uuid) return;
@@ -92,15 +95,23 @@ export const ProductDetailPage = () => {
         }
     }
 
-    const handleAddToCart = () => {
-        console.log('Add to product:', { product: product.uuid, quantity })
-        alert(`Added ${quantity} ${product.name} to cart!`)
-    }
+    const handleAddToCart = async () => {
+        setIsAddingToCart(true);
+        const result = await addItemToCart(product.uuid, null, quantity);
+
+        if (result.success) {
+            alert(`Added ${quantity} ${product.name} to cart!`);
+        } else {
+            alert(result.message);
+        }
+        setIsAddingToCart(false);
+    };
 
     const handleAddToWishlist = () => {
         console.log('Add to wishlist:', product.uuid)
         alert('Added to wishlist')
     }
+
 
     if (isLoading) {
         return (
@@ -301,6 +312,7 @@ export const ProductDetailPage = () => {
                             <Button
                                 onClick={handleAddToCart}
                                 disabled={product.stock === 0}
+                                isLoading={isAddingToCart}
                                 className="flex-1"
                                 size="lg"
                             >

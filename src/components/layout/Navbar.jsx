@@ -2,9 +2,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import { ShoppingCart, User, Menu, X, Search, Heart } from 'lucide-react';
+import { useCart } from "../../hooks/useCart";
 
 export const Navbar = () => {
     const { user, logout, isAuthenticated } = useAuth();
+    const { cartCount } = useCart()
     const navigate = useNavigate();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
@@ -60,9 +62,11 @@ export const Navbar = () => {
                                 {/* Cart */}
                                 <Link to="/cart" className="relative text-gray-700 hover:text-primary transition">
                                     <ShoppingCart className="w-6 h-6" />
-                                    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                                        0
-                                    </span>
+                                    {cartCount > 0 && (
+                                        <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                                            {cartCount}
+                                        </span>
+                                    )}
                                 </Link>
 
                                 {/* Profile Dropdown */}

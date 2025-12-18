@@ -6,9 +6,9 @@ export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
     const { isAuthenticated, loading: authLoading } = useAuth()
-    const { cart, setCart } = useState(null)
-    const { loading, setLoading } = useState(true)
-    const { error, setError } = useState(null)
+    const [cart, setCart] = useState(null)
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState(null)
 
     // Fetch cart when user is authenticated
     useEffect(() => {
@@ -108,7 +108,7 @@ export const CartProvider = ({ children }) => {
         cart,
         loading,
         error,
-        addToCart,
+        addItemToCart,
         updateQuantity,
         removeItem,
         clearCart,

@@ -10,12 +10,17 @@ export const CartPage = () => {
     const { cart, loading, clearCart } = useCart();
 
     const handleClearCart = async () => {
-        if (!window.confirm('Are you sure you want to clear your cart?')) return;
+        showConfirm('Are you sure you want to clear your cart?', async () => {
+            const toastId = showToast.loading('Clearing cart...');
+            const result = await clearCart();
+            showToast.dismiss(toastId);
 
-        const result = await clearCart();
-        if (!result.success) {
-            window.alert(result.message);
-        }
+            if (result.success) {
+                showToast.success('Cart cleared successfully');
+            } else {
+                showToast.error(result.message);
+            }
+        });
     };
 
     if (loading) {

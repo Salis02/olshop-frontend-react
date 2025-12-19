@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Minus, Plus, Trash2 } from 'lucide-react';
 import { useCart } from '../../hooks/useCart';
+import { showToast, showConfirm } from '../../utils/toast';
 
 export const CartItem = ({ item }) => {
     const { updateQuantity, removeItem } = useCart();
@@ -18,27 +19,27 @@ export const CartItem = ({ item }) => {
     const handleQuantityChange = async (newQuantity) => {
         if (newQuantity < 1) return;
         if (newQuantity > item.product.stock) {
-            window.alert(`Only ${item.product.stock} items available`);
+            showToast.error(`Only ${item.product.stock} items available`);
             return;
         }
 
         setIsUpdating(true);
         const result = await updateQuantity(item.id, newQuantity);
         if (!result.success) {
-            window.alert(result.message);
+            showToast.error(result.message);
         }
         setIsUpdating(false);
     };
 
     const handleRemove = async () => {
-        if (!window.confirm('Remove this item from cart?')) return;
-
-        setIsRemoving(true);
-        const result = await removeItem(item.id);
-        if (!result.success) {
-            window.alert(result.message);
-            setIsRemoving(false);
-        }
+        showConfirm('Remove this item from cart?', async () => {
+            setIsRemoving(true);
+            const result = await removeItem(item.id);
+            if (!result.success) {
+                showToast.error(result.message);
+                setIsRemoving(false);
+            }
+        })
     };
 
     return (

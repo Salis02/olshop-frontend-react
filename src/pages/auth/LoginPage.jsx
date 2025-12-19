@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
+import { showToast } from "../../utils/toast";
 
 export const LoginPage = () => {
     const navigate = useNavigate();
@@ -30,8 +31,10 @@ export const LoginPage = () => {
         const result = await login(formData.email, formData.password);
 
         if (result.success) {
+            showToast.success('Welcome back!')
             navigate('/');
         } else {
+            showToast.error(error.message)
             setError(result.message);
         }
         setIsLoading(false);

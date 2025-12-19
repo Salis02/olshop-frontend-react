@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Star } from 'lucide-react';
 import { Button } from '../common/Button';
 import { useAuth } from '../../hooks/useAuth';
+import { showToast } from '../../utils/toast';
 
 export const ReviewForm = ({ productId, onSubmitSuccess }) => {
     const { isAuthenticated } = useAuth();
@@ -15,7 +16,7 @@ export const ReviewForm = ({ productId, onSubmitSuccess }) => {
         e.preventDefault();
 
         if (rating === 0) {
-            setError('Please select a rating');
+            showToast.error('Please select a rating');
             return;
         }
 
@@ -34,11 +35,14 @@ export const ReviewForm = ({ productId, onSubmitSuccess }) => {
             setRating(0);
             setComment('');
 
+            showToast.success('Review submitted successfully!')
+
             // Callback to parent
             if (onSubmitSuccess) {
                 onSubmitSuccess();
             }
         } catch (err) {
+            showToast.error(err.message)
             setError(err.message);
         } finally {
             setIsLoading(false);

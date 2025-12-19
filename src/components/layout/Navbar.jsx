@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import { ShoppingCart, User, Menu, X, Search, Heart } from 'lucide-react';
 import { useCart } from "../../hooks/useCart";
+import { showConfirm, showToast } from "../../utils/toast";
 
 export const Navbar = () => {
     const { user, logout, isAuthenticated } = useAuth();
@@ -12,8 +13,11 @@ export const Navbar = () => {
     const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
 
     const handleLogout = async () => {
-        await logout();
-        navigate('/login');
+        showConfirm('Are you sure want to logout?', async () => {
+            await logout();
+            showToast.success('Logged out successfully')
+            navigate('/login');
+        })
     }
 
     const toggleMobileMenu = () => {

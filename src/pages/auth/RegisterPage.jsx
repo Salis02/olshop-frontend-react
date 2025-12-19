@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
+import { showToast } from "../../utils/toast";
 
 export const RegisterPage = () => {
     const navigate = useNavigate();
@@ -91,9 +92,11 @@ export const RegisterPage = () => {
         const result = await register(userData);
 
         if (result.success) {
+            showToast.success('Registration successfully!')
             navigate('/');
         } else {
             setErrors({ submit: result.message });
+            showToast.error(result.message)
         }
 
         setIsLoading(false);

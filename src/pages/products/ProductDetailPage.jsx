@@ -19,6 +19,7 @@ import {
     Truck
 } from "lucide-react";
 import { useCart } from "../../hooks/useCart";
+import { showToast } from "../../utils/toast";
 
 export const ProductDetailPage = () => {
     const { uuid } = useParams()
@@ -97,19 +98,22 @@ export const ProductDetailPage = () => {
 
     const handleAddToCart = async () => {
         setIsAddingToCart(true);
+
+        const toastId = showToast.loading('Adding to cart...')
         const result = await addItemToCart(product.uuid, null, quantity);
+        showToast.dismiss(toastId)
 
         if (result.success) {
-            alert(`Added ${quantity} ${product.name} to cart!`);
+            showToast.success(`Added ${quantity} ${product.name} to cart!`);
         } else {
-            alert(result.message);
+            showToast.error(result.message);
         }
         setIsAddingToCart(false);
     };
 
     const handleAddToWishlist = () => {
         console.log('Add to wishlist:', product.uuid)
-        alert('Added to wishlist')
+        showToast.success('Added to wishlist')
     }
 
 

@@ -13,7 +13,7 @@ export const CartProvider = ({ children }) => {
     // Fetch cart when user is authenticated
     useEffect(() => {
         if (!authLoading) {
-            if (isAuthenticated) {
+            if (isAuthenticated && user?.role_name === 'USER') {
                 fetchCart();
             } else {
                 setCart(null)

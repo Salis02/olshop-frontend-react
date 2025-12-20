@@ -5,6 +5,7 @@ import { CartSummary } from '../../components/cart/CartSummary';
 import { Loading } from '../../components/common/Loading';
 import { Link } from 'react-router-dom';
 import { ShoppingCart, ArrowLeft } from 'lucide-react';
+import { showConfirm, showToast } from '../../utils/toast';
 
 export const CartPage = () => {
     const { cart, loading, clearCart } = useCart();

@@ -26,6 +26,14 @@ export const ProductCard = ({ product }) => {
                         e.target.src = '/placeholder.jpg';
                     }}
                 />
+
+                {/* Wishlist Button - Top Right */}
+                <div className="absolute top-2 right-2 z-10">
+                    <div className="bg-white rounded-full p-2 shadow-md">
+                        <WishlistButton productId={product.uuid} size="sm" />
+                    </div>
+                </div>
+                
                 {product.stock === 0 && (
                     <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
                         <span className="text-white font-semibold text-lg">Out of Stock</span>

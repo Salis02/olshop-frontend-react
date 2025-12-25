@@ -33,6 +33,7 @@ export const AppRoutes = () => {
                 {/* Protected Routes */}
                 <Route element={<ProtectedRoute />}>
                     <Route path="/cart" element={<CartPage />} />
+                    <Route path="/wishlist" element={<WishlistPage />}/>
                 </Route>
 
                 {/* 404 - Handle route with no handle */}

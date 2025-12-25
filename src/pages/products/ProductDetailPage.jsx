@@ -19,6 +19,7 @@ import {
     Truck
 } from "lucide-react";
 import { useCart } from "../../hooks/useCart";
+import { WishlistButton } from '../../components/wishlist/WishlistButton'
 import { showToast } from "../../utils/toast";
 
 export const ProductDetailPage = () => {
@@ -323,12 +324,9 @@ export const ProductDetailPage = () => {
                                 <ShoppingCart className="w-5 h-5 mr-2" />
                                 Add to Cart
                             </Button>
-                            <button
-                                onClick={handleAddToWishlist}
-                                className="p-3 border-2 border-gray-300 rounded-lg hover:border-primary hover:bg-primary hover:text-white transition"
-                            >
-                                <Heart className="w-6 h-6" />
-                            </button>
+                            <div className="p-3 border-2 border-gray-300 rounded-lg hover:border-primary transition">
+                                <WishlistButton productId={uuid} size="lg" />
+                            </div>
                         </div>
 
                         {/* Features */}

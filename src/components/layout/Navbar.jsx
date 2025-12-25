@@ -4,10 +4,12 @@ import { useAuth } from "../../hooks/useAuth";
 import { ShoppingCart, User, Menu, X, Search, Heart } from 'lucide-react';
 import { useCart } from "../../hooks/useCart";
 import { showConfirm, showToast } from "../../utils/toast";
+import { useWishlist } from '../../hooks/useWishlist'
 
 export const Navbar = () => {
     const { user, logout, isAuthenticated } = useAuth();
     const { cartCount } = useCart()
+    const { wishListCount } = useWishlist();
     const navigate = useNavigate();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
@@ -61,6 +63,11 @@ export const Navbar = () => {
                                 {/* Wishlist */}
                                 <Link to="/wishlist" className="relative text-gray-700 hover:text-primary transition">
                                     <Heart className="w-6 h-6" />
+                                    {wishlistCount > 0 && (
+                                        <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                                            {wishlistCount}
+                                        </span>
+                                    )}
                                 </Link>
 
                                 {/* Cart */}
@@ -178,13 +185,16 @@ export const Navbar = () => {
 
                         {isAuthenticated ? (
                             <>
-                                <Link
-                                    to="/wishlist"
-                                    className="block text-gray-700 hover:text-primary transition"
-                                    onClick={toggleMobileMenu}
-                                >
-                                    Wishlist
+                                {/* Wishlist */}
+                                <Link to="/wishlist" className="relative text-gray-700 hover:text-primary transition">
+                                    <Heart className="w-6 h-6" />
+                                    {wishlistCount > 0 && (
+                                        <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                                            {wishlistCount}
+                                        </span>
+                                    )}
                                 </Link>
+
                                 <Link
                                     to="/cart"
                                     className="block text-gray-700 hover:text-primary transition"

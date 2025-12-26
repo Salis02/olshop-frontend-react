@@ -1,70 +1,290 @@
-# Getting Started with Create React App
+# SANS Store - Frontend Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![React](https://img.shields.io/badge/React-19.2.1-blue)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.4.18-06B6D4)
+![License](https://img.shields.io/badge/license-ISC-green)
 
-## Available Scripts
+A modern, production-ready e-commerce frontend application built with React and TailwindCSS.
 
-In the project directory, you can run:
+## 🚀 Features
 
-### `npm start`
+- **User Authentication** - Login, register, forgot password, and logout functionality
+- **Product Browsing** - View products with filters, search, and sorting
+- **Shopping Cart** - Add, remove, and manage cart items
+- **Wishlist** - Save favorite products for later
+- **Categories** - Browse products by category
+- **Responsive Design** - Mobile-first design with TailwindCSS
+- **Error Handling** - Comprehensive error boundaries and user-friendly error messages
+- **SEO Optimized** - Meta tags, Open Graph, and Twitter Cards for better search visibility
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 📋 Prerequisites
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Before you begin, ensure you have the following installed:
 
-### `npm test`
+- **Node.js** (v14 or higher)
+- **npm** or **yarn**
+- **Backend API** running (olshop-backend)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🛠️ Installation
 
-### `npm run build`
+1. **Clone the repository**
+   ```bash
+   git clone <your-repo-url>
+   cd olshop-frontend
+   ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. **Configure environment variables**
+   
+   Copy the example environment file:
+   ```bash
+   cp .env.example .env
+   ```
+   
+   Edit `.env` and update the following variables:
+   ```env
+   REACT_APP_API_URL=http://localhost:5000/api
+   REACT_APP_API_TIMEOUT=10000
+   REACT_APP_NAME=SANS Store
+   REACT_APP_VERSION=1.0.0
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+4. **Start the development server**
+   ```bash
+   npm start
+   ```
+   
+   The app will open at [http://localhost:3000](http://localhost:3000)
 
-### `npm run eject`
+## 📁 Project Structure
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```
+olshop-frontend/
+├── public/
+│   ├── index.html          # HTML template with SEO meta tags
+│   ├── robots.txt          # Search engine directives
+│   └── ...
+├── src/
+│   ├── api/                # API client and endpoint modules
+│   │   ├── client.js       # Axios instance with interceptors
+│   │   ├── auth.api.js     # Authentication endpoints
+│   │   ├── product.api.js  # Product endpoints
+│   │   └── ...
+│   ├── components/         # Reusable components
+│   │   ├── common/         # Common components (Loading, ErrorBoundary, etc.)
+│   │   ├── layout/         # Layout components (Header, Footer, etc.)
+│   │   ├── product/        # Product-related components
+│   │   └── ...
+│   ├── config/             # Configuration files
+│   │   └── constants.js    # App constants and configs
+│   ├── context/            # React Context providers
+│   │   ├── AuthContext.js
+│   │   ├── CartContext.js
+│   │   └── WishlistContext.js
+│   ├── hooks/              # Custom React hooks
+│   ├── pages/              # Page components
+│   │   ├── auth/           # Auth pages (Login, Register)
+│   │   ├── home/           # Home page
+│   │   ├── products/       # Product pages
+│   │   └── ...
+│   ├── routes/             # Route configuration
+│   │   └── AppRoutes.jsx
+│   ├── utils/              # Utility functions
+│   │   └── helpers.js
+│   ├── App.js              # Root component
+│   └── index.js            # Entry point
+├── .env.example            # Environment variables template
+├── .env.production         # Production environment variables
+├── .env.staging            # Staging environment variables
+├── package.json
+└── README.md
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 🔧 Available Scripts
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Development
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+npm start
+```
+Runs the app in development mode at [http://localhost:3000](http://localhost:3000)
 
-## Learn More
+### Build
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+npm run build
+```
+Builds the app for production to the `build` folder. The build is minified and optimized.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Test
 
-### Code Splitting
+```bash
+npm test
+```
+Launches the test runner in interactive watch mode.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 🌍 Environment Variables
 
-### Analyzing the Bundle Size
+| Variable | Description | Default | Required |
+|----------|-------------|---------|----------|
+| `REACT_APP_API_URL` | Backend API base URL | `http://localhost:5000/api` | Yes |
+| `REACT_APP_API_TIMEOUT` | API request timeout (ms) | `10000` | No |
+| `REACT_APP_NAME` | Application name | `SANS Store` | No |
+| `REACT_APP_VERSION` | Application version | `1.0.0` | No |
+| `REACT_APP_ENABLE_ANALYTICS` | Enable analytics tracking | `false` | No |
+| `REACT_APP_ENABLE_ERROR_TRACKING` | Enable error tracking | `false` | No |
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## 🔐 Authentication
 
-### Making a Progressive Web App
+The app uses JWT (JSON Web Tokens) for authentication:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- **Login**: POST `/api/auth/login`
+- **Register**: POST `/api/auth/register`
+- **Logout**: POST `/api/auth/logout`
 
-### Advanced Configuration
+Tokens are stored in `localStorage` and automatically attached to API requests via Axios interceptors.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## 🎨 Styling
 
-### Deployment
+This project uses **TailwindCSS** for styling. Customize the theme in `tailwind.config.js`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Custom Styles
 
-### `npm run build` fails to minify
+Global styles are defined in `src/index.css`:
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 🛡️ Error Handling
+
+### ErrorBoundary
+
+The app is wrapped with an `ErrorBoundary` component that catches JavaScript errors and displays a user-friendly fallback UI.
+
+### API Error Handling
+
+API errors are handled in `src/api/client.js` with specific error messages for different HTTP status codes:
+- **401**: Session expired, redirect to login
+- **403**: Permission denied
+- **404**: Resource not found
+- **500**: Server error
+- **Network errors**: Connection issues
+
+## 📱 Responsive Design
+
+The application is fully responsive with breakpoints:
+- **Mobile**: < 640px
+- **Tablet**: 640px - 1024px
+- **Desktop**: > 1024px
+
+## 🚀 Deployment
+
+### Building for Production
+
+1. **Update environment variables**
+   ```bash
+   cp .env.production .env
+   # Edit .env with production values
+   ```
+
+2. **Build the app**
+   ```bash
+   npm run build
+   ```
+
+3. **Deploy the `build` folder** to your hosting service:
+   - **Netlify**: Drag and drop the `build` folder
+   - **Vercel**: Connect your Git repository
+   - **AWS S3**: Upload to S3 bucket and configure CloudFront
+   - **Docker**: See `Dockerfile` (if available)
+
+### Important Production Considerations
+
+1. **Update API URL** in `.env.production`
+2. **Update sitemap URL** in `public/robots.txt`
+3. **Update Open Graph URLs** in `public/index.html`
+4. **Enable HTTPS** for security
+5. **Configure CORS** on backend to allow your domain
+
+## 🧪 Testing
+
+```bash
+npm test
+```
+
+Run tests with coverage:
+```bash
+npm test -- --coverage
+```
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+**Problem**: "Network Error" when making API calls
+- **Solution**: Check if backend is running and `REACT_APP_API_URL` is correct
+
+**Problem**: 401 Unauthorized errors
+- **Solution**: Token might be expired, try logging in again
+
+**Problem**: Build fails
+- **Solution**: Clear cache and reinstall dependencies:
+  ```bash
+  rm -rf node_modules package-lock.json
+  npm install
+  ```
+
+## 📦 Dependencies
+
+### Main Dependencies
+- **react**: UI library
+- **react-dom**: React DOM renderer
+- **react-router-dom**: Client-side routing
+- **axios**: HTTP client
+- **react-hot-toast**: Toast notifications
+- **lucide-react**: Icon library
+- **tailwindcss**: Utility-first CSS framework
+
+## 🤝 Contributing
+
+1. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+2. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+3. Push to the branch (`git push origin feature/AmazingFeature`)
+4. Open a Pull Request
+
+## 📝 Code Quality
+
+- Follow React best practices
+- Use functional components and hooks
+- Keep components small and focused
+- Write meaningful commit messages
+- Add comments for complex logic
+
+## 🔄 Recent Improvements (Production-Ready)
+
+✅ **Fixed critical bugs**: WishlistProvider import, token inconsistency
+✅ **Enhanced error handling**: Comprehensive error boundaries and API error handling
+✅ **Improved security**: Better token management and expiry handling
+✅ **SEO optimized**: Meta tags, Open Graph, Twitter Cards
+✅ **Better UX**: Loading states, empty states, error messages
+✅ **Configuration**: Centralized constants and environment variables
+
+## 📞 Support
+
+For issues and questions:
+- Create an issue in the repository
+- Contact the development team
+
+## 📄 License
+
+This project is licensed under the ISC License.
+
+---
+
+**Made with ❤️ by SANS Team**

@@ -45,9 +45,9 @@ export const AuthProvider = ({ children }) => {
     const register = async (userData) => {
         try {
             const data = await authApi.register(userData);
-            setToken(data.token);
+            setToken(data.accessToken);
             setUser(data.user);
-            localStorage.setItem('token', data.token);
+            localStorage.setItem('accessToken', data.accessToken);
             localStorage.setItem('user', JSON.stringify(data.user));
             return { success: true };
         } catch (error) {
@@ -63,7 +63,7 @@ export const AuthProvider = ({ children }) => {
         } finally {
             setToken(null);
             setUser(null);
-            localStorage.removeItem('token');
+            localStorage.removeItem('accessToken');
             localStorage.removeItem('user');
         }
     }

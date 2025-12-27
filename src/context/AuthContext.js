@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from "react";
-import { authApi } from "../api";
+import { authApi, userApi } from "../api";
 
 export const AuthContext = createContext();
 
@@ -68,6 +68,26 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
+    const updateProfile = async (userData) => {
+        try {
+            const updatedUser = await userApi.updateProfile(userData);
+            setUser(updatedUser);
+            localStorage.setItem('user', JSON.stringify(updatedUser)); // Persist update
+            return { success: true, user: updatedUser };
+        } catch (error) {
+            return { success: false, message: error.message || 'Failed to update profile' };
+        }
+    }
+
+    const changePassword = async (passwordData) => {
+        try {
+            await userApi.changePassword(passwordData);
+            return { success: true };
+        } catch (error) {
+            return { success: false, message: error.message || 'Failed to change password' };
+        }
+    }
+
     const value = {
         user,
         token,
@@ -75,6 +95,8 @@ export const AuthProvider = ({ children }) => {
         login,
         register,
         logout,
+        updateProfile,
+        changePassword,
         isAuthenticated: !!token,
     }
 

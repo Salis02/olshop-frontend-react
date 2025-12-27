@@ -13,6 +13,10 @@ import { ProductListPage } from '../pages/products/ProductListPage';
 import { ProductDetailPage } from '../pages/products/ProductDetailPage';
 import { CategoriesPage } from '../pages/categories/CategoriesPage';
 import { CartPage } from '../pages/cart/CartPage';
+import { WishlistPage } from '../pages/wishlist/WishlistPage';
+import { ProfilePage } from '../pages/user/ProfilePage';
+import { OrderHistoryPage } from '../pages/order/OrderHistoryPage';
+import { OrderDetailPage } from '../pages/order/OrderDetailPage';
 
 export const AppRoutes = () => {
     return (
@@ -33,7 +37,10 @@ export const AppRoutes = () => {
                 {/* Protected Routes */}
                 <Route element={<ProtectedRoute />}>
                     <Route path="/cart" element={<CartPage />} />
-                    <Route path="/wishlist" element={<WishlistPage />}/>
+                    <Route path="/wishlist" element={<WishlistPage />} />
+                    <Route path="/profile" element={<ProfilePage />} />
+                    <Route path="/orders" element={<OrderHistoryPage />} />
+                    <Route path="/orders/:uuid" element={<OrderDetailPage />} />
                 </Route>
 
                 {/* 404 - Handle route with no handle */}

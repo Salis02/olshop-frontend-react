@@ -212,7 +212,7 @@ export const ProductDetailPage = () => {
                     <div>
                         {/* Category */}
                         <div className="text-sm text-gray-500 mb-2">
-                            {product.category?.name || 'Uncategorized'}
+                            {product.category?.name || 'Uncategorized'} • Sold by {product.creator?.name || 'Official Store'}
                         </div>
 
                         {/* Product Name */}

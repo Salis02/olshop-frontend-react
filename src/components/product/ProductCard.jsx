@@ -34,7 +34,7 @@ export const ProductCard = ({ product }) => {
                         <WishlistButton productId={product.uuid} size="sm" />
                     </div>
                 </div>
-                
+
                 {product.stock === 0 && (
                     <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
                         <span className="text-white font-semibold text-lg">Out of Stock</span>
@@ -46,7 +46,7 @@ export const ProductCard = ({ product }) => {
             <div className="p-4">
                 {/* Category */}
                 <div className="text-xs text-gray-500 mb-1">
-                    {product.category?.name || 'Uncategorized'}
+                    {product.category?.name || 'Uncategorized'} • {product.creator?.name || 'Seller'}
                 </div>
 
                 {/* Product Name */}
@@ -87,9 +87,6 @@ export const ProductCard = ({ product }) => {
                         <ShoppingCart className="w-4 h-4 mr-1" />
                         Add to Cart
                     </Button>
-                    <button className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition">
-                        <Heart className="w-4 h-4 text-gray-600" />
-                    </button>
                 </div>
             </div>
         </div>

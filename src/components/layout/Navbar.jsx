@@ -26,6 +26,8 @@ export const Navbar = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
     }
 
+    const isSellerOrAdmin = user?.role === 'SELLER' || user?.role_name === 'SELLER' || user?.role === 'ADMIN' || user?.role_name === 'ADMIN';
+
     return (
         <nav className="bg-white shadow-md sticky top-0 z-50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -57,6 +59,12 @@ export const Navbar = () => {
                         <Link to="/categories" className="text-gray-700 hover:text-primary transition">
                             Categories
                         </Link>
+
+                        {isSellerOrAdmin && (
+                            <Link to="/seller" className="text-gray-700 hover:text-primary transition font-medium">
+                                Seller Panel
+                            </Link>
+                        )}
 
                         {isAuthenticated ? (
                             <>
@@ -92,6 +100,15 @@ export const Navbar = () => {
 
                                     {isProfileDropdownOpen && (
                                         <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50">
+                                            {isSellerOrAdmin && (
+                                                <Link
+                                                    to="/seller"
+                                                    className="block px-4 py-2 text-sm text-primary font-medium hover:bg-gray-100"
+                                                    onClick={() => setIsProfileDropdownOpen(false)}
+                                                >
+                                                    Seller Dashboard
+                                                </Link>
+                                            )}
                                             <Link
                                                 to="/profile"
                                                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
@@ -183,24 +200,31 @@ export const Navbar = () => {
                             Categories
                         </Link>
 
+                        {isSellerOrAdmin && (
+                            <Link
+                                to="/seller"
+                                className="block text-primary font-medium hover:text-blue-700 transition"
+                                onClick={toggleMobileMenu}
+                            >
+                                Seller Dashboard
+                            </Link>
+                        )}
+
                         {isAuthenticated ? (
                             <>
                                 {/* Wishlist */}
-                                <Link to="/wishlist" className="relative text-gray-700 hover:text-primary transition">
+                                <Link to="/wishlist" className="relative text-gray-700 hover:text-primary transition flex items-center space-x-2">
                                     <Heart className="w-6 h-6" />
-                                    {wishlistCount > 0 && (
-                                        <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                                            {wishlistCount}
-                                        </span>
-                                    )}
+                                    <span>Wishlist ({wishlistCount})</span>
                                 </Link>
 
                                 <Link
                                     to="/cart"
-                                    className="block text-gray-700 hover:text-primary transition"
+                                    className="block text-gray-700 hover:text-primary transition flex items-center space-x-2"
                                     onClick={toggleMobileMenu}
                                 >
-                                    Cart
+                                    <ShoppingCart className="w-6 h-6" />
+                                    <span>Cart ({cartCount})</span>
                                 </Link>
                                 <Link
                                     to="/profile"

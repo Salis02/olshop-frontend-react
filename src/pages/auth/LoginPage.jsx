@@ -32,7 +32,13 @@ export const LoginPage = () => {
 
         if (result.success) {
             showToast.success('Welcome back!')
-            navigate('/');
+
+            const role = result.user?.role || result.user?.role_name;
+            if (role === 'SELLER' || role === 'ADMIN') {
+                navigate('/seller');
+            } else {
+                navigate('/');
+            }
         } else {
             showToast.error(error.message)
             setError(result.message);

@@ -18,6 +18,12 @@ import { ProfilePage } from '../pages/user/ProfilePage';
 import { OrderHistoryPage } from '../pages/order/OrderHistoryPage';
 import { OrderDetailPage } from '../pages/order/OrderDetailPage';
 
+// Seller pages
+import { SellerDashboardPage } from '../pages/seller/SellerDashboardPage';
+import { SellerProductListPage } from '../pages/seller/products/SellerProductListPage';
+import { SellerProductFormPage } from '../pages/seller/products/SellerProductFormPage';
+import { SellerShipmentListPage } from '../pages/seller/shipments/SellerShipmentListPage';
+
 export const AppRoutes = () => {
     return (
         <BrowserRouter>
@@ -41,6 +47,15 @@ export const AppRoutes = () => {
                     <Route path="/profile" element={<ProfilePage />} />
                     <Route path="/orders" element={<OrderHistoryPage />} />
                     <Route path="/orders/:uuid" element={<OrderDetailPage />} />
+                </Route>
+
+                {/* Seller Routes */}
+                <Route element={<ProtectedRoute allowedRoles={['SELLER', 'ADMIN']} />}>
+                    <Route path="/seller" element={<SellerDashboardPage />} />
+                    <Route path="/seller/products" element={<SellerProductListPage />} />
+                    <Route path="/seller/products/new" element={<SellerProductFormPage />} />
+                    <Route path="/seller/products/edit/:uuid" element={<SellerProductFormPage />} />
+                    <Route path="/seller/shipments" element={<SellerShipmentListPage />} />
                 </Route>
 
                 {/* 404 - Handle route with no handle */}

@@ -9,7 +9,7 @@ import { useWishlist } from '../../hooks/useWishlist'
 export const Navbar = () => {
     const { user, logout, isAuthenticated } = useAuth();
     const { cartCount } = useCart()
-    const { wishListCount } = useWishlist();
+    const { wishlistCount } = useWishlist();
     const navigate = useNavigate();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);

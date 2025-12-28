@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ShoppingCart, Heart, Star } from "lucide-react";
 import { Button } from "../common/Button";
+import { WishlistButton } from "../wishlist/WishlistButton";
 
 export const ProductCard = ({ product }) => {
     const primaryImage = product.images?.find(img => img.is_primary)?.url || '/placeholder.png';

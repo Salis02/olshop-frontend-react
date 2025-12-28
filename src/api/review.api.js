@@ -5,7 +5,7 @@ export const reviewApi = {
     // Get product review
     getByProduct: async (product_id) => {
         const response = await apiClient.get(`/reviews/${product_id}`)
-        return response.data
+        return response.data?.data || []
     },
 
     // Create review product

@@ -72,7 +72,7 @@ export const ProductDetailPage = () => {
 
     const handleReviewSubmitSuccess = () => {
         fetchReviews()
-        alert('Review submitted successfully')
+        showToast.success('Review submitted successfully')
     }
 
     const formatPrice = (price) => {
@@ -143,7 +143,7 @@ export const ProductDetailPage = () => {
     }
 
     const images = product.images?.length > 0 ? product.images : [{ url: '/placeholder.jpg' }]
-    const avgRating = calculateAverageRating
+    const avgRating = calculateAverageRating()
 
     return (
         <Layout>

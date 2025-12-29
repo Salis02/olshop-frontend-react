@@ -6,15 +6,18 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [token, setToken] = useState(null);
+    const [refreshToken, setRefreshToken] = useState(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const storedToken = localStorage.getItem('accessToken');
+        const storedRefreshToken = localStorage.getItem('refreshToken');
         const storedUser = localStorage.getItem('user');
 
         try {
             if (storedToken && storedUser && storedUser !== "undefined") {
                 setToken(storedToken);
+                if (storedRefreshToken) setRefreshToken(storedRefreshToken)
                 setUser(JSON.parse(storedUser));
             }
         } catch (e) {
@@ -31,9 +34,11 @@ export const AuthProvider = ({ children }) => {
             const data = await authApi.login(email, password);
 
             setToken(data.accessToken);
+            setRefreshToken(data.refreshToken)
             setUser(data.user);
 
             localStorage.setItem('accessToken', data.accessToken);
+            localStorage.setItem('refreshToken', data.refreshToken);
             localStorage.setItem('user', JSON.stringify(data.user));
 
             return { success: true, user: data.user };
@@ -57,13 +62,15 @@ export const AuthProvider = ({ children }) => {
 
     const logout = async () => {
         try {
-            await authApi.logout();
+            if (refreshToken) await authApi.logout(refreshToken);
         } catch (error) {
             console.error('Logout failed:', error);
         } finally {
             setToken(null);
+            setRefreshToken(null);
             setUser(null);
             localStorage.removeItem('accessToken');
+            localStorage.removeItem('refreshToken');
             localStorage.removeItem('user');
         }
     }

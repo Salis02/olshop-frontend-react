@@ -95,6 +95,24 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
+    const forgotPassword = async (email) => {
+        try {
+            await authApi.forgotPassword(email);
+            return { success: true };
+        } catch (error) {
+            return { success: false, message: error.response?.data?.error?.message || 'Failed to send reset email' };
+        }
+    }
+
+    const resetPassword = async (token, newPassword) => {
+        try {
+            await authApi.resetPassword(token, newPassword);
+            return { success: true };
+        } catch (error) {
+            return { success: false, message: error.response?.data?.error?.message || 'Failed to reset password' };
+        }
+    }
+
     const value = {
         user,
         token,
@@ -104,6 +122,8 @@ export const AuthProvider = ({ children }) => {
         logout,
         updateProfile,
         changePassword,
+        forgotPassword,
+        resetPassword,
         isAuthenticated: !!token,
     }
 

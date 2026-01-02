@@ -30,7 +30,7 @@ export const ProductBasicInfo = ({ initialData, onSubmit, isLoading }) => {
     const fetchCategories = async () => {
         try {
             const data = await categoryApi.getAll();
-            setCategories(data?.data || []); // Adjust based on API response structure
+            setCategories(data); // Adjust based on API response structure
         } catch (error) {
             console.error('Failed to fetch categories:', error);
         }

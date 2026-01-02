@@ -36,35 +36,44 @@ export const RegisterPage = () => {
     const validateForm = () => {
         const newErrors = {};
 
-        // Name validation
+        // Name validation (sync with backend)
         if (!formData.name.trim()) {
             newErrors.name = 'Name is required';
-        } else if (formData.name.length < 3) {
-            newErrors.name = 'Name must be at least 3 characters';
+        } else if (formData.name.length < 2) {
+            newErrors.name = 'Name must be at least 2 characters';
+        } else if (formData.name.length > 100) {
+            newErrors.name = 'Name must be at most 100 characters';
         }
 
         // Email validation
         if (!formData.email.trim()) {
             newErrors.email = 'Email is required';
-        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+        } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
             newErrors.email = 'Email is invalid';
         }
 
-        // Password validation
+        // Password validation (sync with backend)
         if (!formData.password) {
             newErrors.password = 'Password is required';
         } else if (formData.password.length < 6) {
             newErrors.password = 'Password must be at least 6 characters';
+        } else if (formData.password.length > 100) {
+            newErrors.password = 'Password must be at most 100 characters';
+        } else if (!/[A-Za-z]/.test(formData.password) || !/\d/.test(formData.password)) {
+            newErrors.password = 'Password must contain both letters and numbers';
         }
 
-        // Confirm password validation
+        // Confirm password (frontend only)
         if (formData.password !== formData.confirmPassword) {
             newErrors.confirmPassword = 'Passwords do not match';
         }
 
-        // Phone validation (optional)
-        if (formData.phone && !/^[0-9]{10,15}$/.test(formData.phone)) {
-            newErrors.phone = 'Phone number must be 10-15 digits';
+        // Phone validation (E.164, optional)
+        if (
+            formData.phone &&
+            !/^\+?[1-9]\d{1,14}$/.test(formData.phone)
+        ) {
+            newErrors.phone = 'Invalid phone number format';
         }
 
         setErrors(newErrors);
@@ -165,7 +174,7 @@ export const RegisterPage = () => {
                                 onChange={handleChange}
                                 className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary ${errors.phone ? 'border-red-500' : 'border-gray-300'
                                     }`}
-                                placeholder="08123456789"
+                                placeholder="628123456789"
                             />
                             {errors.phone && (
                                 <p className="mt-1 text-sm text-red-500">{errors.phone}</p>

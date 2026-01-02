@@ -48,9 +48,9 @@ export const LoginPage = () => {
 
     return (
 
-        <div className="flex items-center justify-center min-h-screen bg-gray-700 px-4">
+        <div className="flex items-center justify-center min-h-screen bg-white px-4">
             <div className="w-full max-w-md">
-                <div className="bg-white border border-yellow-900 rounded-lg shadow-md p-8">
+                <div className="bg-white border rounded-lg shadow-md p-8">
                     <h2 className="text-3xl font-bold text-center mb-6">Login</h2>
 
                     {error && (
@@ -61,7 +61,7 @@ export const LoginPage = () => {
 
                     <form onSubmit={handleSubmit} className="space-y-4">
                         <div>
-                            <label className="block text-sm font-medium text-yellow-700 mb-1">
+                            <label className="block text-sm font-medium text-gray-700 mb-1">
                                 Email
                             </label>
                             <input
@@ -76,7 +76,7 @@ export const LoginPage = () => {
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-yellow-700 mb-1">
+                            <label className="block text-sm font-medium text-gray-700 mb-1">
                                 Password
                             </label>
                             <input

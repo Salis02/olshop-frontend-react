@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Package, Truck, Settings } from 'lucide-react';
+import { LayoutDashboard, Package, Truck } from 'lucide-react';
 
 export const SellerSidebar = () => {
     const location = useLocation();
@@ -25,12 +25,6 @@ export const SellerSidebar = () => {
             icon: Truck,
             label: 'Shipments'
         },
-        // Placeholder for future settings
-        // {
-        //     path: '/seller/settings',
-        //     icon: Settings,
-        //     label: 'Settings'
-        // }
     ];
 
     return (

@@ -117,7 +117,7 @@ export const Navbar = () => {
                                                     Seller Dashboard
                                                 </Link>
                                             )}
-                                            {(user?.role === 'ADMIN' || user?.role_name === 'ADMIN') && (
+                                            {isAdmin && (
                                                 <>
                                                     <Link
                                                         to="/admin/coupons"
@@ -237,7 +237,7 @@ export const Navbar = () => {
                             </Link>
                         )}
 
-                        {(user?.role === 'ADMIN' || user?.role_name === 'ADMIN') && (
+                        {isAdmin && (
                             <>
                                 <Link
                                     to="/admin/coupons"

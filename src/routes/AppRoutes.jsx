@@ -27,6 +27,10 @@ import { SellerProductListPage } from '../pages/seller/products/SellerProductLis
 import { SellerProductFormPage } from '../pages/seller/products/SellerProductFormPage';
 import { SellerShipmentListPage } from '../pages/seller/shipments/SellerShipmentListPage';
 
+// Admin pages
+import { AdminCouponListPage } from '../pages/admin/coupons/AdminCouponListPage';
+import { AdminEventListPage } from '../pages/admin/events/AdminEventListPage';
+
 export const AppRoutes = () => {
     return (
         <BrowserRouter>

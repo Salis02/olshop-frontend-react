@@ -19,6 +19,7 @@ import { WishlistPage } from '../pages/wishlist/WishlistPage';
 import { ProfilePage } from '../pages/user/ProfilePage';
 import { OrderHistoryPage } from '../pages/order/OrderHistoryPage';
 import { OrderDetailPage } from '../pages/order/OrderDetailPage';
+import { CheckoutPage } from '../pages/checkout/CheckoutPage';
 
 // Seller pages
 import { SellerDashboardPage } from '../pages/seller/SellerDashboardPage';
@@ -47,6 +48,7 @@ export const AppRoutes = () => {
                 {/* Protected Routes */}
                 <Route element={<ProtectedRoute />}>
                     <Route path="/cart" element={<CartPage />} />
+                    <Route path="/checkout" element={<CheckoutPage />} />
                     <Route path="/wishlist" element={<WishlistPage />} />
                     <Route path="/profile" element={<ProfilePage />} />
                     <Route path="/orders" element={<OrderHistoryPage />} />

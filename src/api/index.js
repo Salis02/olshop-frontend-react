@@ -13,5 +13,10 @@ export { shipmentApi } from './shipment.api';
 export { userApi } from './user.api';
 export { addressApi } from './address.api';
 export { orderApi } from './order.api';
+export { paymentApi } from './payment.api';
+export { couponApi } from './coupon.api';
+export { eventApi } from './event.api';
+export { eventProductApi } from './eventProduct.api';
+export { activityApi } from './activity.api';
 
 export default apiClient;

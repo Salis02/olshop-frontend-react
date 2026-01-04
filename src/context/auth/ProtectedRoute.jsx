@@ -14,8 +14,12 @@ export const ProtectedRoute = ({ allowedRoles }) => {
     }
 
     if (allowedRoles && allowedRoles.length > 0) {
-        // Check for role or role_name property
-        const userRole = user?.role || user?.role_name;
+        // Check for role or role_name property (handle both formats)
+        const userRole = user?.role?.name || user?.role_name || user?.role;
+
+        console.log('ProtectedRoute - User:', user);
+        console.log('ProtectedRoute - Detected Role:', userRole);
+        console.log('ProtectedRoute - Allowed Roles:', allowedRoles);
 
         if (!userRole || !allowedRoles.includes(userRole)) {
             // Redirect to home or unauthorized page

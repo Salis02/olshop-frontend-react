@@ -26,7 +26,9 @@ export const Navbar = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
     }
 
-    const isSellerOrAdmin = user?.role === 'SELLER' || user?.role_name === 'SELLER' || user?.role === 'ADMIN' || user?.role_name === 'ADMIN';
+    const userRole = user?.role?.name || user?.role_name || user?.role;
+    const isSellerOrAdmin = userRole === 'SELLER' || userRole === 'ADMIN';
+    const isAdmin = userRole === 'ADMIN';
 
     return (
         <nav className="bg-white shadow-md sticky top-0 z-50">
@@ -63,6 +65,12 @@ export const Navbar = () => {
                         {isSellerOrAdmin && (
                             <Link to="/seller" className="text-gray-700 hover:text-primary transition font-medium">
                                 Seller Panel
+                            </Link>
+                        )}
+
+                        {isAdmin && (
+                            <Link to="/admin/coupons" className="text-gray-700 hover:text-primary transition font-medium">
+                                Admin Panel
                             </Link>
                         )}
 
@@ -108,6 +116,25 @@ export const Navbar = () => {
                                                 >
                                                     Seller Dashboard
                                                 </Link>
+                                            )}
+                                            {(user?.role === 'ADMIN' || user?.role_name === 'ADMIN') && (
+                                                <>
+                                                    <Link
+                                                        to="/admin/coupons"
+                                                        className="block px-4 py-2 text-sm text-purple-600 font-medium hover:bg-gray-100"
+                                                        onClick={() => setIsProfileDropdownOpen(false)}
+                                                    >
+                                                        Manage Coupons
+                                                    </Link>
+                                                    <Link
+                                                        to="/admin/events"
+                                                        className="block px-4 py-2 text-sm text-purple-600 font-medium hover:bg-gray-100"
+                                                        onClick={() => setIsProfileDropdownOpen(false)}
+                                                    >
+                                                        Manage Events
+                                                    </Link>
+                                                    <hr className="my-2" />
+                                                </>
                                             )}
                                             <Link
                                                 to="/profile"
@@ -208,6 +235,25 @@ export const Navbar = () => {
                             >
                                 Seller Dashboard
                             </Link>
+                        )}
+
+                        {(user?.role === 'ADMIN' || user?.role_name === 'ADMIN') && (
+                            <>
+                                <Link
+                                    to="/admin/coupons"
+                                    className="block text-purple-600 font-medium hover:text-purple-700 transition"
+                                    onClick={toggleMobileMenu}
+                                >
+                                    Manage Coupons
+                                </Link>
+                                <Link
+                                    to="/admin/events"
+                                    className="block text-purple-600 font-medium hover:text-purple-700 transition"
+                                    onClick={toggleMobileMenu}
+                                >
+                                    Manage Events
+                                </Link>
+                            </>
                         )}
 
                         {isAuthenticated ? (

@@ -68,6 +68,12 @@ export const AppRoutes = () => {
                     <Route path="/seller/shipments" element={<SellerShipmentListPage />} />
                 </Route>
 
+                {/* Admin Routes */}
+                <Route element={<ProtectedRoute allowedRoles={['ADMIN']} />}>
+                    <Route path="/admin/coupons" element={<AdminCouponListPage />} />
+                    <Route path="/admin/events" element={<AdminEventListPage />} />
+                </Route>
+
                 {/* 404 - Handle route with no handle */}
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>

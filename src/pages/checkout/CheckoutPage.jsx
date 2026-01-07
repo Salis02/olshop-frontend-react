@@ -120,14 +120,27 @@ export const CheckoutPage = () => {
                 const paymentResponse = await paymentApi.create(paymentData);
 
                 if (paymentResponse.success) {
-                    showToast.success('Order placed successfully!');
 
-                    // Redirect based on payment method
-                    if (paymentResponse.data.redirect_url) {
-                        window.location.href = paymentResponse.data.redirect_url;
-                    } else {
-                        navigate(`/orders/${orderId}`);
-                    }
+                    const snapToken = paymentResponse.data.snap_token;
+
+                    window.snap.pay(snapToken, {
+                        onSuccess: function (result) {
+                            showToast.success('Payment successful!');
+                            navigate(`/orders/${orderId}`);
+                        },
+                        onPending: function (result) {
+                            showToast.info('Payment is pending. Please complete the payment.');
+                            navigate(`/orders/${orderId}`);
+                        },
+                        onError: function (result) {
+                            showToast.error('Payment failed. Please try again.');
+                        },
+                        onClose: function () {
+                            showToast.info('Payment popup closed without completing the payment.');
+                        }
+                    });
+                } else {
+                    showToast.error('Failed to create payment');
                 }
             }
         } catch (error) {
@@ -210,8 +223,8 @@ export const CheckoutPage = () => {
                                         <label
                                             key={address.id}
                                             className={`block p-4 border-2 rounded-lg cursor-pointer transition ${selectedAddress === address.id
-                                                    ? 'border-primary bg-blue-50'
-                                                    : 'border-gray-200 hover:border-gray-300'
+                                                ? 'border-primary bg-blue-50'
+                                                : 'border-gray-200 hover:border-gray-300'
                                                 }`}
                                         >
                                             <input

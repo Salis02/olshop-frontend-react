@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, use } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Layout } from '../../components/layout/Layout';
 import { useCart } from '../../hooks/useCart';
 import { addressApi, orderApi, paymentApi, couponApi } from '../../api';
 import { showToast } from '../../utils/toast';
+import { midtransConfig } from '../../utils/midtrans';
 import { MapPin, CreditCard, Tag, Package, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '../../components/common/Button';
@@ -43,6 +44,12 @@ export const CheckoutPage = () => {
             setAddressLoading(false);
         }
     };
+
+    useEffect(() => {
+        midtransConfig().catch(() => {
+            showToast.error('Failed to load payment gateway');
+        });
+    }, []);
 
     const handleApplyCoupon = async () => {
         if (!couponCode.trim()) {
@@ -92,6 +99,8 @@ export const CheckoutPage = () => {
         try {
             setLoading(true);
 
+            await midtransConfig();
+
             // Create order
             const orderData = {
                 shipping_address_id: selectedAddress,
@@ -119,7 +128,7 @@ export const CheckoutPage = () => {
 
                 const paymentResponse = await paymentApi.create(paymentData);
 
-                if (paymentResponse.success) {
+                if (paymentResponse.success && paymentResponse.data.snap_token) {
 
                     const snapToken = paymentResponse.data.snap_token;
 

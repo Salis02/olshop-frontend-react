@@ -28,8 +28,8 @@ export const CheckoutPage = () => {
 
     useEffect(() => {
         if (addresses.length > 0 && !selectedAddress) {
-            const defaultAddress = addresses.find(addr => addr.is_default);
-            setSelectedAddress(defaultAddress.id ? defaultAddress.id : addresses[0].id);
+            const defaultAddr = addresses.find(addr => addr.is_default);
+            setSelectedAddress(defaultAddr ? defaultAddr.id : addresses[0].id);
         }
     }, [addresses]);
 

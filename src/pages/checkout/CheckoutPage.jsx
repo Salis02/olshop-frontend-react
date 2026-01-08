@@ -2,48 +2,36 @@ import { useState, useEffect, use } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Layout } from '../../components/layout/Layout';
 import { useCart } from '../../hooks/useCart';
-import { addressApi, orderApi, paymentApi, couponApi } from '../../api';
+import { orderApi, paymentApi, couponApi } from '../../api';
 import { showToast } from '../../utils/toast';
 import { midtransConfig } from '../../utils/midtrans';
 import { MapPin, CreditCard, Tag, Package, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '../../components/common/Button';
 import { Loading } from '../../components/common/Loading';
+import { useContext } from 'react';
+import { AddressContext } from '../../context/AddressContext';
 
 export const CheckoutPage = () => {
     const navigate = useNavigate();
     const { cart, loading: cartLoading } = useCart();
-    const [addresses, setAddresses] = useState([]);
+    const { addresses, fetchAddresses, loading: addressLoading } = useContext(AddressContext);
     const [selectedAddress, setSelectedAddress] = useState(null);
     const [couponCode, setCouponCode] = useState('');
     const [appliedCoupon, setAppliedCoupon] = useState(null);
     const [paymentMethod, setPaymentMethod] = useState('bank_transfer');
     const [loading, setLoading] = useState(false);
-    const [addressLoading, setAddressLoading] = useState(true);
 
     useEffect(() => {
         fetchAddresses();
-    }, []);
+    }, [fetchAddresses]);
 
-    const fetchAddresses = async () => {
-        try {
-            setAddressLoading(true);
-            const response = await addressApi.getAll();
-            setAddresses(response.data || []);
-
-            // Auto-select default address
-            const defaultAddr = response.data?.find(addr => addr.is_default);
-            if (defaultAddr) {
-                setSelectedAddress(defaultAddr.id);
-            } else if (response.data?.length > 0) {
-                setSelectedAddress(response.data[0].id);
-            }
-        } catch (error) {
-            showToast.error('Failed to load addresses');
-        } finally {
-            setAddressLoading(false);
+    useEffect(() => {
+        if (addresses.length > 0 && !selectedAddress) {
+            const defaultAddress = addresses.find(addr => addr.is_default);
+            setSelectedAddress(defaultAddress.id ? defaultAddress.id : addresses[0].id);
         }
-    };
+    }, [addresses]);
 
     useEffect(() => {
         midtransConfig().catch(() => {

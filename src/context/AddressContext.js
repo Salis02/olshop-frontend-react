@@ -41,7 +41,8 @@ export const AddressProvider = ({ children }) => {
     const updateAddress = async (id, addressData) => {
         try {
             setLoading(true);
-            const updatedAddress = await addressApi.update(id, addressData);
+            const response = await addressApi.update(id, addressData);
+            const updatedAddress = response.data;
             setAddresses(prev => prev.map(addr => addr.uuid === id ? updatedAddress : addr));
             return { success: true, data: updatedAddress };
         } catch (err) {
@@ -55,7 +56,7 @@ export const AddressProvider = ({ children }) => {
         try {
             setLoading(true);
             await addressApi.remove(id);
-            setAddresses(prev => prev.filter(addr => addr.uuid !== id));
+            setAddresses(prev => prev.filter(addr => addr.id !== id));
             return { success: true };
         } catch (err) {
             return { success: false, message: err.message || 'Failed to delete address' };

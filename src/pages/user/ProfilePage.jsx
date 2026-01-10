@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Layout } from "../../components/layout/Layout";
 import { useAuth } from "../../hooks/useAuth";
 import { useAddress } from "../../hooks/useAddress";
+import { showConfirm, showToast } from "../../utils/toast";
 import { AddressForm } from "../../components/address/AddressForm";
 import { User, MapPin, Edit, Plus, Trash2, Package } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -16,7 +17,6 @@ export const ProfilePage = () => {
     const [showAddressForm, setShowAddressForm] = useState(false);
     const [editingAddress, setEditingAddress] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [message, setMessage] = useState({ type: '', text: '' });
 
     // Profile Form State
     const [profileData, setProfileData] = useState({
@@ -38,14 +38,16 @@ export const ProfilePage = () => {
 
     const handleUpdateProfile = async (e) => {
         e.preventDefault();
-        setLoading(true);
+
+        const toastId = showToast.loading('Updating profile...');
         const result = await updateProfile(profileData);
-        setLoading(false);
+        showToast.dismiss(toastId);
+
         if (result.success) {
-            setMessage({ type: 'success', text: 'Profile updated successfully' });
+            showToast('success', 'Profile updated successfully');
             setIsEditingProfile(false);
         } else {
-            setMessage({ type: 'error', text: result.message || 'Failed to update profile' });
+            showToast('error', result.message || 'Failed to update profile');
         }
     };
 

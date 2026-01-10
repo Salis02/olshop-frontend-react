@@ -58,7 +58,7 @@ export const ProfilePage = () => {
             return;
         }
         const toastId = showToast.loading('Changing password...');
-        
+
         const result = await changePassword({
             currentPassword: passwordData.currentPassword,
             newPassword: passwordData.newPassword
@@ -75,14 +75,17 @@ export const ProfilePage = () => {
     };
 
     const handleDeleteAddress = async (id) => {
-        if (window.confirm('Are you sure you want to delete this address?')) {
+        showConfirm('Are you sure you want to delete this address?', async () => {
+            const toastId = showToast.loading('Deleting address...');
             const result = await deleteAddress(id);
-            if (!result.success) {
-                setMessage({ type: 'error', text: result.message });
+            showToast.dismiss(toastId);
+
+            if (result.success) {
+                showToast('success', 'Address deleted successfully');
             } else {
-                setMessage({ type: 'success', text: 'Address deleted successfully' });
+                showToast('error', result.message || 'Failed to delete address');
             }
-        }
+        })
     };
 
     return (

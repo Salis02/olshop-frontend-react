@@ -54,21 +54,23 @@ export const ProfilePage = () => {
     const handleChangePassword = async (e) => {
         e.preventDefault();
         if (passwordData.newPassword !== passwordData.confirmPassword) {
-            setMessage({ type: 'error', text: 'New passwords do not match' });
+            showToast.error('New password and confirm password do not match');
             return;
         }
-        setLoading(true);
+        const toastId = showToast.loading('Changing password...');
+        
         const result = await changePassword({
             currentPassword: passwordData.currentPassword,
             newPassword: passwordData.newPassword
         });
-        setLoading(false);
+        showToast.dismiss(toastId);
+
         if (result.success) {
-            setMessage({ type: 'success', text: 'Password changed successfully' });
+            showToast('success', 'Password changed successfully');
             setIsChangingPassword(false);
             setPasswordData({ currentPassword: '', newPassword: '', confirmPassword: '' });
         } else {
-            setMessage({ type: 'error', text: result.message });
+            showToast('error', result.message);
         }
     };
 

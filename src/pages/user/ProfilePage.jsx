@@ -34,7 +34,7 @@ export const ProfilePage = () => {
 
     useEffect(() => {
         fetchAddresses();
-    }, [fetchAddresses]);
+    }, []);
 
     const handleUpdateProfile = async (e) => {
         e.preventDefault();
@@ -45,7 +45,7 @@ export const ProfilePage = () => {
             setMessage({ type: 'success', text: 'Profile updated successfully' });
             setIsEditingProfile(false);
         } else {
-            setMessage({ type: 'error', text: result.message });
+            setMessage({ type: 'error', text: result.message || 'Failed to update profile' });
         }
     };
 
@@ -75,6 +75,8 @@ export const ProfilePage = () => {
             const result = await deleteAddress(id);
             if (!result.success) {
                 setMessage({ type: 'error', text: result.message });
+            } else {
+                setMessage({ type: 'success', text: 'Address deleted successfully' });
             }
         }
     };

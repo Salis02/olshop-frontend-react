@@ -56,7 +56,7 @@ export const AddressProvider = ({ children }) => {
         try {
             setLoading(true);
             await addressApi.remove(id);
-            setAddresses(prev => prev.filter(addr => addr.id !== id));
+            setAddresses(prev => prev.filter(addr => addr.uuid !== id));
             return { success: true };
         } catch (err) {
             return { success: false, message: err.message || 'Failed to delete address' };
